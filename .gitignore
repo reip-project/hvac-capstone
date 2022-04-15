@@ -1,5 +1,8 @@
 Adafruit_SHTC3/.idea/*
 Adafruit_SHTC3.zip
+.DS_Store
+
+software/.idea
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
