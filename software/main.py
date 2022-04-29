@@ -3,8 +3,8 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import time
-import reip
-import pandas as pd
+#import reip
+#import pandas as pd
 import csv
 import serial
 import numpy as np
@@ -19,7 +19,7 @@ def print_hi(name):
 
 lst = []
 def demo():
-    dev = serial.Serial(port="/dev/tty.usbmodem0E22C4B41", baudrate=115200)
+    dev = serial.Serial(port="/dev/ttyACM0", baudrate=115200)
     #TODO Read any trash present
     while True:
         cmd = input()
@@ -37,11 +37,11 @@ def demo():
         ar = np.array(f)
         dev2 = serial.Serial()
         print(a, type(a))
-        print(ar, type(ar))
-        name=['tem','humi']
-        data1= pd.DataFrame(columns = name , data = [f] )
-        print(data1)
-        data1.to_csv('data1')
+        #print(ar, type(ar))
+        #name=['tem','humi']
+        #data1= pd.DataFrame(columns = name , data = [f] )
+        #print(data1)
+        #data1.to_csv('data1')
         #lst.append(a)
     dev.close()
 

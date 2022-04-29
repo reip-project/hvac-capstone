@@ -5,7 +5,7 @@ import numpy as np
 
 class SHTC3(reip.Block):
     baudrate = 115200
-    port = "/dev/tty.usbmodem0E22C4B41"
+    port = "/dev/ttyACM0"
 
     def __init__(self, **kw):
         # This is a data source block (no inputs)
@@ -18,6 +18,7 @@ class SHTC3(reip.Block):
     def process(self, *xs, meta):
         # Acquire sensor reading (send "m and get "temp,hum")
         self.dev.write("m".encode())
+        t = time.time()
         time.sleep(0.1)
         raw = []
         while self.dev.in_waiting:
@@ -25,9 +26,9 @@ class SHTC3(reip.Block):
         msg = "".join(raw).strip()
         # Format the data as per REIP API
         f = [float(v) for v in msg.split(",")]
-        data = np.array(f).reshape(1, -1)  # axis=0 is for time
+        data = np.array([t, *f]).reshape(1, -1)  # axis=0 is for time
         # Pass the data to the next block
-        return [data], {"timestamp": time.time()}
+        return [data], {"time": t}
 
     def finish(self):
         # Close the connection
